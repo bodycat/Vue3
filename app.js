@@ -1,103 +1,40 @@
-const h = Vue.h
+// вы можете как угодно изменять программу и код
+// добавлять любые переменные и модели
+// ваша задача реализовать так, как показано на видео, чтобы оно работало
 
-const app = Vue.createApp({
+const App = {
   data() {
     return {
-      title: 'Это из свойства template'
+      activeIndex: 0, // то, что позволяет определить текущий активный шаг
+      steps: [
+        {title: 'Основы', text: 'В блоке вы познакомитесь со всеми основами Vue.js на практике. На протяжении блока мы напишем реактивное приложение, в процессе разработки которого разберем вся базу фреймворка.'},
+        {title: 'Компоненты', text: 'Один из самых важных блоков в курсе, где вы узнаете все о компонентах. В блоке мы напишем 2 разных приложения и создадим более 5 различных UI компонентов как в реальной разработке. Блок расскажет про абсолютно все составляющие, которые есть в компонентах: взаимодействие, slots, асинхронные и динамические компоненты и тонна примеров.'},
+        {title: 'Роутер', text: 'В данном блоке вы узнаете все о том, как работает мультиязычность во Vue. Мы создадим миниклон Gmail в данном блоке, где вы на практике увидите как работать с динамическим роутером.'},
+        {title: 'Vuex', text: 'В блоке вы узнаете абсолютно все про Vuex. Вы узнаете как работать с данными, какие есть лучшие практики по их программированию и структурированию. Все на практике.'},
+        {title: 'Composition', text: 'Одним из наиболее важных обновлений в Vue 3 является появление альтернативного синтаксиса Composition API. В этом блоке вы узнаете все, чтобы полностью пользоваться данными синтаксисом на практических примерах. Помимо этого вы узнаете как работать совместно с Vue Router и Vuex.'},
+      ]
     }
   },
   methods: {
-    changeTitle() {
-      console.log(this)
-      this.title = 'Изменили!'
+    prev() {
+      // когда нажимаем кнопку назад
+    },
+    reset() {
+      // начать заново
+    },
+    nextOfFinish() {
+      // кнопка вперед или закончить
+    },
+    setActive(idx) {
+      // когда нажимаем на определенный шаг
     }
   },
-  // template: `
-  //   <div class="card center">
-  //     <h1>{{ title }}</h1>
-  //     <button class="btn" @click="title = 'Изменили!'">Изменить</button>
-  //   </div>
-  // `
-  render() {
-    return h('div', {
-      class: 'card center'
-    }, [
-      h('h1', {}, this.title),
-      h('button', {
-        class: 'btn',
-        onClick: this.changeTitle
-      }, 'Изменить')
-    ])
-  },
-  beforeCreate() {
-    console.log('beforeCreate')
-  },
-  created() {
-    console.log('created')
-  },
-  beforeMount() {
-    console.log('beforeMount')
-  },
-  mounted() {
-    console.log('mounted')
-  },
-  beforeUnmount() {
-    console.log('beforeUnmount')
-  },
-  unmounted() {
-    console.log('unmounted')
-  },
-  beforeUpdate() {
-    console.log('beforeUpdate')
-  },
-  updated() {
-    console.log('updated')
+  computed: {
+    // тут стоит определить несколько свойств:
+    // 1. текущий выбранный шаг
+    // 2. выключена ли кнопка назад
+    // 3. находимся ли мы на последнем шагaaе
   }
-})
-
-app.mount('#app')
-
-Vue.createApp({
-  data() {
-    return {
-      title: 'New Title 2'
-    }
-  }
-}).mount('#app2')
-
-// setTimeout(() => {
-//   app.unmount()
-// }, 2000)
-
-// ======
-
-let title = 'Vue 3'
-let message = 'Заголовок это: ' + title
-
-// console.log(message)
-//
-// title = 'Angular 10'
-//
-// console.log(message)
-
-const data = {
-  title: 'Vue 3',
-  message: 'Заголовок это: Vue 3'
 }
 
-const proxy = new Proxy(data, {
-  // get(target, p) {
-  //   console.log(target)
-  //   console.log(p)
-  // },
-  set(target, key, value) {
-    if (key === 'title') {
-      target.message = 'Заголовок это: ' + value
-    }
-    target[key] = value
-  }
-})
-
-proxy.title = 'Angular 10'
-
-// console.log(proxy)
+Vue.createApp(App).mount('#app')
