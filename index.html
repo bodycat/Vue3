@@ -14,17 +14,45 @@
 
     <div class="steps">
       <div class="steps-content">
-        Сюда необходимо вывести текст активного шага по его индексу
+<!--        Сюда необходимо вывести текст активного шага по его индексу-->
+        {{ currentActiveIndex.text }}
       </div>
       <ul class="steps-list">
-        <li class="steps-item done"><span>1</span> Шаг 1</li>
-        <li class="steps-item done"><span>2</span> Шаг 2</li>
-        <li class="steps-item active"><span>3</span> Шаг 3</li>
-        <li class="steps-item"><span>4</span> Шаг 4</li>
+        <li
+                v-for = "(item, idx) in steps"
+                class = "steps-item"
+                :class = "{
+                  active: activeIndex === idx,
+                  done: activeIndex > idx - 1
+                }"
+                @click="setActive(idx)"
+        >
+          <span>
+            {{ idx+1 }}
+          </span>
+            {{item.title}}
+<!--        </li>-->
+<!--        <li class="steps-item done"><span>1</span> Шаг 1</li>-->
+<!--        <li class="steps-item done"><span>2</span> Шаг 2</li>-->
+<!--        <li class="steps-item active"><span>3</span> Шаг 3</li>-->
+<!--        <li class="steps-item"><span>4</span> Шаг 4</li>-->
       </ul>
       <div>
-        <button class="btn">Назад</button>
-        <button class="btn primary">Вперед</button>
+        <button
+                class = "btn"
+                @click="lastIndex ? reset() : prev()"
+                :disabled = "firstIndex"
+        >
+            {{lastIndex ? "Начать заново" : "Назад"}}
+        </button>
+
+        <button
+                v-if="!lastIndex"
+                class="btn primary"
+                @click="nextOfFinish"
+        >
+          {{ currentLastIndex ? "Закончить" : "Вперёд"  }}
+        </button>
       </div>
     </div>
   </div>
